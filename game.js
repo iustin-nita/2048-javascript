@@ -60,24 +60,66 @@ let playGame = new Phaser.Class({
     this.fieldArray = [];
     this.fieldGroup = this.add.group();
     this.score = 0;
-    this.beatScore = localStorage.getItem(gameOptions.localStorageName) == null;
+    this.bestScore = localStorage.getItem(gameOptions.localStorageName) == null ? 0 : localStorage.getItem(gameOptions.localStorageName);
 
-    // for (let i = 0; i < 4; i++) {
-    //   this.fieldArray[i] = [];
-    //   for (let j = 0; j < 4; j++) {
-    //     var spot = this.add.sprite(this.tileDestination(j, col), this.tileDestination(i, row), "spot")
-    //     var tile = this.add.sprite(this.tileDestination(j, col), this.tileDestination(i, row), "tiles");
-    //     this.alpha = 0;
-    //     this.visible = 0;
-    //     this.fieldGroup.add(tile);
-    //     this.fieldArray[i][j] = {
-    //       tileValue: 0,
-    //       tileSprite: tile,
-    //       canUpgrade: true
-    //     }
-    //   }
-    // }
-  }
+    for (let i = 0; i < 4; i++) {
+      this.fieldArray[i] = [];
+      for (let j = 0; j < 4; j++) {
+        var spot = this.add.sprite(this.tileDestination(j, col), this.tileDestination(i, row), "spot")
+        var tile = this.add.sprite(this.tileDestination(j, col), this.tileDestination(i, row), "tiles");
+        this.alpha = 0;
+        this.visible = 0;
+        this.fieldGroup.add(tile);
+        this.fieldArray[i][j] = {
+          tileValue: 0,
+          tileSprite: tile,
+          canUpgrade: true
+        }
+      }
+    }
+
+    let restartButton = this.add.sprite(this.tileDestination(3, col), this.tileDestination(0, row) - 200, 'restart');
+    restartButton.setInteractive();
+    restartButton.on('pointerDown', () => {
+      this.scene.start('PlayGame');
+    }, this);
+
+    this.add.sprite(this.tileDestination(1, col), this.tileDestination(0, row) - 200, 'scorepanel');
+    this.add.sprite(this.tileDestination(1, col), this.tileDestination(0, row) - 270, 'scorelabels');
+    this.add.sprite(10, 5, 'gametitle').setOrigin(0, 0);
+
+    let howTo = this.add.sprite(game.config.width, 5, 'howtoplay');
+    howTo.setOrigin(1, 0);
+
+    let logo = this.add.sprite(game.config.width / 2, game.config.height, 'logo');
+    logo.setOrigin(0.5,1);
+    logo.setInteractive();
+    logo.on('pointerDown', () => {
+      window.location.href = '/';
+    });
+
+    this.scoreText = this.add.bitmapText(this.tileDestination(0, col) - 80, this.tileDestination(0, row) - 255, 'font', '0' );
+    this.bestScoreText = this.add.bitmapText(this.tileDestination(2, col) - 190, this.tileDestination(0, row) - 255, 'font', this.bestScore.toString());
+
+    // call function we set up later
+    this.input.keyboard.on('keydown', this.handleKey, this);
+  },
+
+  swipe = (e) => {
+    console.log('swipe');
+  },
+
+  addTile = () => {
+    console.log("add a tile");
+  },
+
+  handleKey: (e) => {
+    console.log("PRESSED");
+  },
+
+  handleMove: (e) => {
+    console.log("Move");
+  },
 })
 
 
