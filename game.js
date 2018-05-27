@@ -10,7 +10,7 @@ let row = 0;
 let col = 1;
 
 window.onload = () => {
-  let gameCongig = {
+  let gameConfig = {
     type: Phaser.AUTO,
     width: gameOptions.tileSize * 4 + gameOptions.totalSpacing * 5,
     height: (gameOptions.tileSize * 4 + gameOptions.totalSpacing * 5) * 16 / 9,
@@ -18,7 +18,7 @@ window.onload = () => {
     scene: [preloadAssets, playGame]
   };
 
-  game = new Phaser.Game(gameCongig);
+  game = new Phaser.Game(gameConfig);
   window.focus();
   resize();
   window.addEventListener('resize', resize, false);
@@ -53,7 +53,7 @@ let preloadAssets = new Phaser.Class({
 
 let playGame = new Phaser.Class({
   Extends: Phaser.Scene,
-  initialize: () => {
+  initialize: function() {
     Phaser.Scene.call(this, {key: 'PlayGame'});
   },
   create: () => {
@@ -103,13 +103,25 @@ let playGame = new Phaser.Class({
 
     // call function we set up later
     this.input.keyboard.on('keydown', this.handleKey, this);
+
+    this.canMove = false;
+
+    // add 2 tiles when game starts
+    this.addTile();
+    this.addTile();
+
+    this.input.on('pointerup', this.swipeE, this);
+
+    this.moveSound = this.sound.add('move');
+    this.growSound = this.sound.add('grow');
+
   },
 
-  swipe = (e) => {
+  swipeE: (e) => {
     console.log('swipe');
   },
 
-  addTile = () => {
+  addTile: () => {
     console.log("add a tile");
   },
 
