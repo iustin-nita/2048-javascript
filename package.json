@@ -1,0 +1,29 @@
+{
+  "name": "2048-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iustin-nita/2048-javascript.git"
+  },
+  "keywords": [
+    "javascript",
+    "2048",
+    "game",
+    "phaser"
+  ],
+  "author": "iustin nita",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iustin-nita/2048-javascript/issues"
+  },
+  "homepage": "https://github.com/iustin-nita/2048-javascript#readme",
+  "dependencies": {
+    "http-server": "^0.11.1",
+    "phaser": "^3.9.0"
+  }
+}
